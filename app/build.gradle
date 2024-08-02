@@ -1,0 +1,74 @@
+plugins {
+    id 'application'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.seleniumhq.selenium:selenium-java:4.23.0'
+    implementation 'io.github.bonigarcia:webdrivermanager:5.9.1'
+
+    implementation 'io.cucumber:cucumber-java:7.18.0'
+    testImplementation 'io.cucumber:cucumber-junit:7.18.0'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.3'
+    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.10.3'
+    testImplementation 'org.junit.vintage:junit-vintage-engine:5.10.3'
+
+    testImplementation 'org.testng:testng:7.10.2'
+    implementation 'org.json:json:20240303'
+
+    testImplementation 'io.rest-assured:rest-assured:5.5.0'
+    implementation 'io.rest-assured:json-schema-validator:5.5.0'
+
+    testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.26.3'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.3'
+
+    implementation 'com.jayway.jsonpath:json-path:2.9.0'
+
+    testImplementation("org.awaitility:awaitility:4.2.1")
+
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+application {
+    mainClass = 'org.example.App'
+}
+
+test {
+    useJUnitPlatform()
+    systemProperty "cucumber.filter.tags", System.getProperty("cucumber.filter.tags")
+}
+
+configurations {
+    cucumberRuntime {
+        extendsFrom testImplementation
+    }
+}
+
+def tags = (findProperty('tags') == null) ? 'not @exclude' : findProperty('tags') + ' and not @exclude'
+
+tasks.register('cucumberTest') {
+    dependsOn assemble, testClasses
+    doLast {
+        javaexec {
+            mainClass = "io.cucumber.core.cli.Main"
+            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+            args = [
+                    '--plugin', 'pretty',
+                    '--plugin', 'html:reports/cucumber-api-report.html',
+                    '--plugin', 'json:reports/cucumber-api-report.json',
+                    '--glue', 'stepdef',
+                    '--tags',"${tags}",
+                    'src/test/java/feature']
+        }
+    }
+}
