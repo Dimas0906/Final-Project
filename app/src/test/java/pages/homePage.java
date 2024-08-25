@@ -1,18 +1,25 @@
 package pages;
 
 import java.util.Set;
+import java.time.Duration;
 import java.util.Iterator;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.*;
+import static helper.Utility.driver;
+import org.openqa.selenium.Alert;
 
-public class homePage {
+import helper.BaseTest;
 
-  WebDriver driver;
+public class homePage extends BaseTest {
+  WebDriverWait wait;
+  String randomEmail = generateRandomEmail();
+  String randomPassowrd = getRandomName.generateName() + "123";
 
-  // Constructor untuk Home Pages
-  public homePage(WebDriver driver) {
-    this.driver = driver;
+  // Open page
+  public void openPage() {
+    driver.get("https://www.demoblaze.com/");
   }
 
   // Click pada Home
@@ -120,19 +127,67 @@ public class homePage {
     driver.switchTo().window(subWindowHandle);
 
     driver.findElement(By.xpath("//*[@id=\"sign-username\"]")).sendKeys(username);
+    driver.findElement(By.xpath("//*[@id=\"sign-password\"]")).sendKeys(password);
+
+    driver.switchTo().window(parentWindowHandler);
+  }
+
+  // memasukan email untuk signup
+  public void inputOneFieldOnly(String field, String something) {
+    String parentWindowHandler = driver.getWindowHandle();
+    String subWindowHandle = null;
+
+    Set<String> handles = driver.getWindowHandles();
+    Iterator<String> iterator = handles.iterator();
+
+    while (iterator.hasNext()) {
+      subWindowHandle = iterator.next();
+    }
+    driver.switchTo().window(subWindowHandle);
+
+    if (field == "email") {
+      driver.findElement(By.xpath("//*[@id=\"sign-email\"]")).sendKeys(something);
+    } else if (field == "password") {
+      driver.findElement(By.xpath("//*[@id=\"sign-password\"]")).sendKeys(something);
+    }
 
     driver.switchTo().window(parentWindowHandler);
   }
 
   // Memasukan password untuk signup
   public void inputSignupPassword(String password) {
-    driver.findElement(By.xpath("//input[@id=\"sign-password\"]")).sendKeys(password);
+    String parentWindowHandler = driver.getWindowHandle();
+    String subWindowHandle = null;
+
+    Set<String> handles = driver.getWindowHandles();
+    Iterator<String> iterator = handles.iterator();
+
+    while (iterator.hasNext()) {
+      subWindowHandle = iterator.next();
+    }
+    driver.switchTo().window(subWindowHandle);
+
+    driver.findElement(By.xpath("//*[@id=\"sign-password\"]")).sendKeys(password);
+
+    driver.switchTo().window(parentWindowHandler);
   }
 
   // CLick pada Sign up
   public void clickSignUpButton() {
     driver.findElement(By.xpath("//button[contains(text(),'Sign up')]")).click();
   }
+
+  //
+  public void checkUserSuccessLogin() {
+    WebElement welcomeElement = driver.findElement(By.xpath("//*[@id='nameofuser']"));
+    welcomeElement.isDisplayed();
+  }
+
+  public void inputGeneratedEmailPassword() {
+    inputSignupUsernameAndPassword(randomEmail, randomPassowrd);
+  }
+
+  // ----------------- LOGIN -----------------
 
   // Click pada Log in
   public void clickLogInButton() {
@@ -189,14 +244,44 @@ public class homePage {
     }
   }
 
-  // User dapat melihat Signup sukses pada alert
-  public void isSignupSuccess() {
-    driver.switchTo().alert().getText().contains("Sign up successful.");
+  // User dapat melihat signup berhasil pada alert
+  public void isSignupSuccess(String message, String userAction) {
+    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+    wait.until(ExpectedConditions.alertIsPresent());
+
+    Alert alert = driver.switchTo().alert();
+
+    switch (message) {
+      case "Sign up successful.":
+        alert.getText().contains("Sign up successful.");
+        break;
+
+      case "This user already exist.":
+        alert.getText().contains("This user already exist.");
+        break;
+
+      case "Please fill out Username and Password.":
+        alert.getText().contains("Please fill out Username and Password.");
+        break;
+
+      default:
+        break;
+    }
+
+    if (userAction == "OK") {
+      alert.accept();
+    } else {
+      alert.dismiss();
+    }
   }
 
   // User dapat melihat signup gagal pada alert karena user sudah ada
   public void isSignupFailed() {
     driver.switchTo().alert().getText().contains("This user already exist.");
+  }
+
+  public void notFillUpEmailAndPassword() {
+    driver.switchTo().alert().getText().contains("Please fill out Username and Password.");
   }
 
   // User click OK pada allert

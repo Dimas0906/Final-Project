@@ -1,22 +1,8 @@
 package helper;
 
 import java.util.Random;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-
-import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class BaseTest {
-  protected static WebDriver driver;
-
-  protected void getDriver() {
-    ChromeOptions options = new ChromeOptions();
-    options.addArguments("--headless");
-    WebDriverManager.chromedriver().setup();
-    driver = new ChromeDriver(options);
-  }
-
   public class getRandomName {
     private static final String[] FIRST_NAMES = { "James", "Mary", "John", "Patricia", "Robert", "Jennifer", "Michael",
         "Linda", "Santo", "Ryu" };
