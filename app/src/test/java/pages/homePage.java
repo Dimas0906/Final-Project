@@ -88,32 +88,14 @@ public class homePage extends BaseTest {
     }
   }
 
+  // ----------------- SIGN UP -----------------
+
   // Click pada Sign Up
   public void clickSignUp() {
     driver.findElement(By.xpath("//a[text()='Sign up']")).click();
   }
 
-  // CLick pada Log in
-  public void clickLogIn() {
-    driver.findElement(By.xpath("//a[text()='Log in']")).click();
-  }
-
-  // Click pada Cart
-  public void clickCart() {
-    driver.findElement(By.xpath("//a[text()='Cart']")).click();
-  }
-
-  // Click pada About us
-  public void clickAboutUs() {
-    driver.findElement(By.xpath("//a[text()='About us']")).click();
-  }
-
-  // Click pada Contact
-  public void clickContact() {
-    driver.findElement(By.xpath("//a[text()='Contact']")).click();
-  }
-
-  // Memasukan username untuk signup
+  // Memasukan username dan password untuk signup
   public void inputSignupUsernameAndPassword(String username, String password) {
     String parentWindowHandler = driver.getWindowHandle();
     String subWindowHandle = null;
@@ -132,7 +114,7 @@ public class homePage extends BaseTest {
     driver.switchTo().window(parentWindowHandler);
   }
 
-  // memasukan email untuk signup
+  // memasukan cuma salah satu field saja (email / password)
   public void inputOneFieldOnly(String field, String something) {
     String parentWindowHandler = driver.getWindowHandle();
     String subWindowHandle = null;
@@ -154,24 +136,6 @@ public class homePage extends BaseTest {
     driver.switchTo().window(parentWindowHandler);
   }
 
-  // Memasukan password untuk signup
-  public void inputSignupPassword(String password) {
-    String parentWindowHandler = driver.getWindowHandle();
-    String subWindowHandle = null;
-
-    Set<String> handles = driver.getWindowHandles();
-    Iterator<String> iterator = handles.iterator();
-
-    while (iterator.hasNext()) {
-      subWindowHandle = iterator.next();
-    }
-    driver.switchTo().window(subWindowHandle);
-
-    driver.findElement(By.xpath("//*[@id=\"sign-password\"]")).sendKeys(password);
-
-    driver.switchTo().window(parentWindowHandler);
-  }
-
   // CLick pada Sign up
   public void clickSignUpButton() {
     driver.findElement(By.xpath("//button[contains(text(),'Sign up')]")).click();
@@ -185,6 +149,28 @@ public class homePage extends BaseTest {
 
   public void inputGeneratedEmailPassword() {
     inputSignupUsernameAndPassword(randomEmail, randomPassowrd);
+  }
+
+  // ----------------- LOG IN -----------------
+
+  // CLick pada Log in
+  public void clickLogIn() {
+    driver.findElement(By.xpath("//a[text()='Log in']")).click();
+  }
+
+  // Click pada Cart
+  public void clickCart() {
+    driver.findElement(By.xpath("//a[text()='Cart']")).click();
+  }
+
+  // Click pada About us
+  public void clickAboutUs() {
+    driver.findElement(By.xpath("//a[text()='About us']")).click();
+  }
+
+  // Click pada Contact
+  public void clickContact() {
+    driver.findElement(By.xpath("//a[text()='Contact']")).click();
   }
 
   // ----------------- LOGIN -----------------

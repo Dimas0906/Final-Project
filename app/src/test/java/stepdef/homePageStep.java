@@ -24,7 +24,7 @@ public class homePageStep extends BaseTest {
     homePage.clickSignUp();
   }
 
-  @Then("User can see {string} Pop-up shown")
+  @Then("User can see {string} Pop-up shown") // General scenario for pop-up
   public void userCanSeePopUpShown(String modal) {
     homePage.isModalDisplayed("Sign up");
   }
@@ -37,11 +37,6 @@ public class homePageStep extends BaseTest {
   @And("User input field {string} with this value {string}")
   public void userInputEmailWithThisValueEmail(String field, String value) {
     homePage.inputOneFieldOnly(field, value);
-  }
-
-  @And("User input sign up password with this value {string}")
-  public void userInputPasswordWithThisValuePassword(String password) {
-    homePage.inputSignupPassword(password);
   }
 
   @And("Let the system generated random email and password")
