@@ -30,12 +30,12 @@ public class homePageStep extends BaseTest {
   }
 
   @And("User input sign up email {string} and sign up password {string}")
-  public void userInputEmailWithThisValueUsername(String username, String password) {
+  public void userSignupWithSpecificUsernameAndPassword(String username, String password) {
     homePage.inputSignupUsernameAndPassword(username, password);
   }
 
   @And("User input field {string} with this value {string}")
-  public void userInputEmailWithThisValueEmail(String field, String value) {
+  public void userInputOnlyOneField(String field, String value) {
     homePage.inputOneFieldOnly(field, value);
   }
 
@@ -51,12 +51,37 @@ public class homePageStep extends BaseTest {
 
   @Then("User can see alert shown with message {string} and Click {string}")
   public void userCanSeeAlertShownWithMessageSignUpSuccessful(String message, String userAction) {
-    homePage.isSignupSuccess(message, userAction);
+    homePage.chceckAlertMessage(message, userAction);
   }
 
   @And("User click OK on alert")
   public void userClickOKOnAlert() {
     homePage.clickOkAlert();
+  }
+
+  @When("User click on Log in menu")
+  public void userClickOnLoginMenu() {
+    homePage.clickLogInMenu();
+  }
+
+  @Then("User click on Log in button")
+  public void userClickOnLoginButton() {
+    homePage.clickLogInButton();
+  }
+
+  @Then("User can see Welcom user on the top right of the page")
+  public void userCanSeeWelcomeUserOnTheTopRightOfThePage() {
+    homePage.checkUserSuccessLogin();
+  }
+
+  @And("User input log in username {string} and log in password {string}")
+  public void userInputLoginUsernameAndPassword(String username, String password) {
+    homePage.inputLoginUsernameAndPassword(username, password);
+  }
+
+  @And("User input field {string} with this value {string} on log in")
+  public void userInputOnlyOneFieldForLogin(String field, String value) {
+    homePage.inputOneFieldOnlyForLogin(field, value);
   }
 
 }

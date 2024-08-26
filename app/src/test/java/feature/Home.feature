@@ -1,3 +1,4 @@
+@homepage
 Feature: Test UI Automation
 
 
@@ -49,4 +50,50 @@ Feature: Test UI Automation
     Then User can see alert shown with message "Sign up successful" and Click "OK"
 
 
-# ------------ Login ------------
+  # ------------ Login ------------
+
+  @login
+  Scenario: Login using registered username and password
+    Given open web page
+    When User click on Log in menu
+    Then User can see "Log in" Pop-up shown
+    And User input log in username "testemasil123@gc.cm.test" and log in password "12345678"
+    And User click on Log in button
+    Then User can see Welcom user on the top right of the page
+
+  @login
+  Scenario: Login using unregistered username and password
+    Given open web page
+    When User click on Log in menu
+    Then User can see "Log in" Pop-up shown
+    And User input log in username "randomized882@gmc.cm.test" and log in password "unregistered123"
+    And User click on Log in button
+    Then User can see alert shown with message "User does not exist." and Click "OK"
+
+  @login
+  Scenario: Login using wrong password
+    Given open web page
+    When User click on Log in menu
+    Then User can see "Log in" Pop-up shown
+    And User input log in username "testemasil123@gc.cm.test" and log in password "testingrandom123"
+    And User click on Log in button
+    Then User can see alert shown with message "Wrong password." and Click "OK"
+
+  @login
+  Scenario: Login without fill out password
+    Given open web page
+    When User click on Log in menu
+    Then User can see "Log in" Pop-up shown
+    And User input field "email" with this value "testmaillogin123@gmc.cm.test" on log in
+    And User click on Log in button
+    Then User can see alert shown with message "Please fill out Username and Password" and Click "OK"
+
+  @login
+  Scenario: Login without fill out email
+    Given open web page
+    When User click on Log in menu
+    Then User can see "Log in" Pop-up shown
+    And User input field "password" with this value "randompassword123" on log in
+    And User click on Log in button
+    Then User can see alert shown with message "Please fill out Username and Password" and Click "OK"
+

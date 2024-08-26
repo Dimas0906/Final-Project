@@ -129,7 +129,7 @@ public class homePage extends BaseTest {
 
     if (field == "email") {
       driver.findElement(By.xpath("//*[@id=\"sign-email\"]")).sendKeys(something);
-    } else if (field == "password") {
+    } else {
       driver.findElement(By.xpath("//*[@id=\"sign-password\"]")).sendKeys(something);
     }
 
@@ -142,10 +142,6 @@ public class homePage extends BaseTest {
   }
 
   //
-  public void checkUserSuccessLogin() {
-    WebElement welcomeElement = driver.findElement(By.xpath("//*[@id='nameofuser']"));
-    welcomeElement.isDisplayed();
-  }
 
   public void inputGeneratedEmailPassword() {
     inputSignupUsernameAndPassword(randomEmail, randomPassowrd);
@@ -154,8 +150,54 @@ public class homePage extends BaseTest {
   // ----------------- LOG IN -----------------
 
   // CLick pada Log in
-  public void clickLogIn() {
+  public void clickLogInMenu() {
     driver.findElement(By.xpath("//a[text()='Log in']")).click();
+  }
+
+  // Memasukan username dan password untuk signup
+  public void inputLoginUsernameAndPassword(String username, String password) {
+    String parentWindowHandler = driver.getWindowHandle();
+    String subWindowHandle = null;
+
+    Set<String> handles = driver.getWindowHandles();
+    Iterator<String> iterator = handles.iterator();
+
+    while (iterator.hasNext()) {
+      subWindowHandle = iterator.next();
+    }
+    driver.switchTo().window(subWindowHandle);
+
+    driver.findElement(By.xpath("//*[@id=\"loginusername\"]")).sendKeys(username);
+    driver.findElement(By.xpath("//*[@id=\"loginpassword\"]")).sendKeys(password);
+
+    driver.switchTo().window(parentWindowHandler);
+  }
+
+  // memasukan cuma salah satu field saja (email / password)
+  public void inputOneFieldOnlyForLogin(String field, String something) {
+    String parentWindowHandler = driver.getWindowHandle();
+    String subWindowHandle = null;
+
+    Set<String> handles = driver.getWindowHandles();
+    Iterator<String> iterator = handles.iterator();
+
+    while (iterator.hasNext()) {
+      subWindowHandle = iterator.next();
+    }
+    driver.switchTo().window(subWindowHandle);
+
+    if (field == "username") {
+      driver.findElement(By.xpath("//*[@id=\"loginusername\"]")).sendKeys(something);
+    } else {
+      driver.findElement(By.xpath("//*[@id=\"loginpassword\"]")).sendKeys(something);
+    }
+
+    driver.switchTo().window(parentWindowHandler);
+  }
+
+  public void checkUserSuccessLogin() {
+    WebElement welcomeElement = driver.findElement(By.xpath("//*[@id='nameofuser']"));
+    welcomeElement.isDisplayed();
   }
 
   // Click pada Cart
@@ -172,8 +214,6 @@ public class homePage extends BaseTest {
   public void clickContact() {
     driver.findElement(By.xpath("//a[text()='Contact']")).click();
   }
-
-  // ----------------- LOGIN -----------------
 
   // Click pada Log in
   public void clickLogInButton() {
@@ -231,7 +271,7 @@ public class homePage extends BaseTest {
   }
 
   // User dapat melihat signup berhasil pada alert
-  public void isSignupSuccess(String message, String userAction) {
+  public void chceckAlertMessage(String message, String userAction) {
     WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
     wait.until(ExpectedConditions.alertIsPresent());
 
@@ -248,6 +288,14 @@ public class homePage extends BaseTest {
 
       case "Please fill out Username and Password.":
         alert.getText().contains("Please fill out Username and Password.");
+        break;
+
+      case "Wrong passwrod.":
+        alert.getText().contains("Wrong passwrod.");
+        break;
+
+      case "User does not exist.":
+        alert.getText().contains("User does not exist.");
         break;
 
       default:
