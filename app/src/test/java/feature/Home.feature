@@ -97,3 +97,30 @@ Feature: Test UI Automation
     And User click on Log in button
     Then User can see alert shown with message "Please fill out Username and Password" and Click "OK"
 
+
+  # ------------ About Us ------------
+  @aboutus
+  Scenario: User try to see about us pop-up
+    Given open web page
+    When User click on About Us menu
+    Then User can see "About us" Pop-up shown
+    And User can click on Close button on about us pop-up
+
+
+  # ------------ Contact Us ------------
+
+  @contactus
+  Scenario: User try to send message to contact admin using Contact us
+    Given open web page
+    When User click on Contact menu
+    Then User can see "Contact us" Pop-up shown
+    And User input "testemasil123@gc.cm.test" for email, "Test Person" for name, and "Hello from new user" for message
+    Then User click on Send Message button
+    Then User can see alert shown with message "Thanks for the message!!" and Click "OK"
+
+  @contactus
+  Scenario: User try to click on Close after open the Contact us pop-up
+    Given open web page
+    When User click on Contact menu
+    Then User can see "Contact us" Pop-up shown
+    And User click on Close button on Contact Us

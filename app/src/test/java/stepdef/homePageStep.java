@@ -54,10 +54,7 @@ public class homePageStep extends BaseTest {
     homePage.chceckAlertMessage(message, userAction);
   }
 
-  @And("User click OK on alert")
-  public void userClickOKOnAlert() {
-    homePage.clickOkAlert();
-  }
+  // ----------------- LOG IN -----------------
 
   @When("User click on Log in menu")
   public void userClickOnLoginMenu() {
@@ -82,6 +79,39 @@ public class homePageStep extends BaseTest {
   @And("User input field {string} with this value {string} on log in")
   public void userInputOnlyOneFieldForLogin(String field, String value) {
     homePage.inputOneFieldOnlyForLogin(field, value);
+  }
+
+  // ----------------- About Us -----------------
+
+  @When("User click on About Us menu")
+  public void userClickOnAboutUsMenu() {
+    homePage.clickAboutUsMenu();
+  }
+
+  @Then("User can click on Close button on about us pop-up")
+  public void userCloseAboutUsModal() {
+    homePage.userCloseAboutUsModal();
+  }
+
+  // ----------------- Contact Us -----------------
+  @Then("User click on Contact menu")
+  public void userClickOnContactMenu() {
+    homePage.clickContactMenu();
+  }
+
+  @And("User input {string} for email, {string} for name, and {string} for message")
+  public void userInputForEmailNameAndMessage(String email, String name, String message) {
+    homePage.userFillUpAllTheInformationOnContact(email, name, message);
+  }
+
+  @Then("User click on Send Message button")
+  public void userClickOnSendMessageButton() {
+    homePage.clickSendMessage();
+  }
+
+  @Then("User click on Close button on Contact Us")
+  public void userClickOnCloseButtonOnContactUs() {
+    homePage.clickCloseButtonOnContactUs();
   }
 
 }
