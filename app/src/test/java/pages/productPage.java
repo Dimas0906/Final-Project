@@ -2,25 +2,36 @@ package pages;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.time.Duration;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 import helper.BaseTest;
 import static helper.Utility.driver;
 
-public class detailProductPage extends BaseTest {
+public class productPage extends BaseTest {
 
   // Validasi product yang di click benaar
-  public void isTheProductCorrect(String productName) {
-    if (productName != "") {
-      driver.findElement(By.xpath("//h2[contains(text(),'" + productName + "')]")).isDisplayed();
-    }
+  public void isTheProductThere(String productName) {
+    driver.findElement(By.xpath("//*[contains(text(),'" + productName + "')]")).isDisplayed();
+  }
+
+  // Click pada product
+  public void clickProduct(String productName) {
+    driver.navigate().refresh();
+    driver.findElement(By.xpath("//h4[@class='card-title']//*[contains(text(),'"
+        + productName + "')]")).click();
   }
 
   // Click pada tombol Add to Cart
   public void clickAddToCart() {
-    driver.findElement(By.xpath("//a[contains(text(),'Add to cart')]")).click();
+    driver.findElement(By.xpath("//*[contains(text(),'Add to cart')]")).click();
   }
 
   // Click pada alert yang muncul

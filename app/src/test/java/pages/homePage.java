@@ -5,6 +5,7 @@ import java.time.Duration;
 import java.util.Iterator;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.*;
 import static helper.Utility.driver;
@@ -16,6 +17,7 @@ public class homePage extends BaseTest {
   WebDriverWait wait;
   String randomEmail = generateRandomEmail();
   String randomPassowrd = getRandomName.generateName() + "123";
+  Set<Cookie> cookies;
 
   // Open page
   public void openPage() {
@@ -24,7 +26,7 @@ public class homePage extends BaseTest {
 
   // Click pada Home
   public void clickHome() {
-    driver.findElement(By.xpath("//a[text()='Home']")).click();
+    driver.findElement(By.xpath("//a[contains(text(), \"Home\")]")).click();
   }
 
   // Validasi posisi page harus di Home
@@ -118,6 +120,10 @@ public class homePage extends BaseTest {
 
       case "Thanks for the message!!":
         alert.getText().contains("Thanks for the message!!");
+        break;
+
+      case "Product added.":
+        alert.getText().contains("Product added.");
         break;
 
       default:
@@ -244,6 +250,7 @@ public class homePage extends BaseTest {
   }
 
   public void checkUserSuccessLogin() {
+    // Cookie variable
     WebElement welcomeElement = driver.findElement(By.xpath("//*[@id='nameofuser']"));
     welcomeElement.isDisplayed();
   }
@@ -320,5 +327,15 @@ public class homePage extends BaseTest {
       driver.findElement(By.xpath("//a[contains(text(),'" + product + "')]")).click();
     }
   }
+
+  // // ----------------- Manage Cookied -----------------
+
+  // // Get all the cookied setelah sukses login
+  // public void getAllCookies() {
+  // cookies = driver.manage().getCookies();
+  // for (Cookie getCookie : cookies) {
+  // System.out.println("Ini adalah per-vlaue cookie " + getCookie);
+  // }
+  // }
 
 }

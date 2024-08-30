@@ -59,7 +59,7 @@ Feature: Test UI Automation
     Then User can see "Log in" Pop-up shown
     And User input log in username "testemasil123@gc.cm.test" and log in password "12345678"
     And User click on Log in button
-    Then User can see Welcom user on the top right of the page
+    Then User can see Welcome user on the top right of the page
 
   @login
   Scenario: Login using unregistered username and password

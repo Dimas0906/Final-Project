@@ -66,7 +66,7 @@ public class homePageStep extends BaseTest {
     homePage.clickLogInButton();
   }
 
-  @Then("User can see Welcom user on the top right of the page")
+  @Then("User can see Welcome user on the top right of the page")
   public void userCanSeeWelcomeUserOnTheTopRightOfThePage() {
     homePage.checkUserSuccessLogin();
   }
