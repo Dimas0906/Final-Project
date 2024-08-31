@@ -12,6 +12,12 @@ public class productStep extends BaseTest {
   productPage productPage = new productPage();
   homePage homePage = new homePage();
 
+  // User mengakses Cart
+  @Given("User try to open Cart menu")
+  public void userOpenCartMenu() {
+    productPage.openCartMenu();
+  }
+
   // User melakukan login dengan akun yang sudah ada
   @Given("User try to login using this {string} username and {string} password")
   public void systemPerformLoginUsingExistingUser(String username, String password) {
@@ -41,6 +47,11 @@ public class productStep extends BaseTest {
   @And("User click on Home menu to go back")
   public void userClickOnHomeMenu() {
     homePage.clickHome();
+  }
+
+  @Then("User can see product {string} on cart")
+  public void userCheckProductOnCart(String productName) {
+    productPage.isProductListed(productName);
   }
 
 }

@@ -17,6 +17,12 @@ import static helper.Utility.driver;
 
 public class productPage extends BaseTest {
 
+  // Open Cart
+  public void openCartMenu() {
+    driver.navigate().refresh();
+    driver.findElement(By.xpath("//*[contains(text(), 'Cart')]")).click();
+  }
+
   // Validasi product yang di click benaar
   public void isTheProductThere(String productName) {
     driver.findElement(By.xpath("//*[contains(text(),'" + productName + "')]")).isDisplayed();
@@ -34,22 +40,12 @@ public class productPage extends BaseTest {
     driver.findElement(By.xpath("//*[contains(text(),'Add to cart')]")).click();
   }
 
-  // Click pada alert yang muncul
-  public void clickAlert() {
-    driver.switchTo().alert().accept();
-  }
-
-  // Check apakah product berhasil di add to cart
-  public void isProductAddedToCart(String productName) {
-    driver.findElement(By.xpath("//td[contains(text(),'" + productName + "')]")).isDisplayed();
-  }
-
   // Check list dari product di cart
   public void isProductListed(String productName) {
     List<WebElement> elements = driver.findElements(By.xpath("//tr[@class=\"success\"]"));
 
     for (WebElement element : elements) {
-      String nameOfProduct = element.findElement(By.xpath("//td[text()=\"productName\"]")).getText();
+      String nameOfProduct = element.findElement(By.xpath("//td[text()='" + productName + "']")).getText();
       if (nameOfProduct.equals(productName)) {
         element.isDisplayed();
       }
