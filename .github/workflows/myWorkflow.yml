@@ -32,6 +32,9 @@ jobs:
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
 
+    - name: Gradle Permission
+      run: chmod +x selenium/gradlew
+      
     - name: Build with Gradle Wrapper
       run: ./gradlew build
 
@@ -40,9 +43,6 @@ jobs:
 
     - name: Setup Chrome
       uses: browser-actions/setup-chrome@v1.7.2
-
-    - name: Gradle Permission
-      run: chmod +x selenium/gradlew
 
     - name: Execute UI Testing Headless
       run: |
