@@ -126,6 +126,10 @@ public class homePage extends BaseTest {
         alert.getText().contains("Product added.");
         break;
 
+      case "Please fill out Name and Creditcard.":
+        alert.getText().contains("Please fill out Name and Creditcard.");
+        break;
+
       default:
         break;
     }
@@ -327,15 +331,4 @@ public class homePage extends BaseTest {
       driver.findElement(By.xpath("//a[contains(text(),'" + product + "')]")).click();
     }
   }
-
-  // // ----------------- Manage Cookied -----------------
-
-  // // Get all the cookied setelah sukses login
-  // public void getAllCookies() {
-  // cookies = driver.manage().getCookies();
-  // for (Cookie getCookie : cookies) {
-  // System.out.println("Ini adalah per-vlaue cookie " + getCookie);
-  // }
-  // }
-
 }

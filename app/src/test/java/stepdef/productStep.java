@@ -54,4 +54,23 @@ public class productStep extends BaseTest {
     productPage.isProductListed(productName);
   }
 
+  @And("User click on Place Order button")
+  public void userClickOnPlaceOrder() {
+    productPage.clickPlaceOrder();
+  }
+
+  @And("Place Order pop-up shown")
+  public void orderModalPopUpShown() {
+    productPage.isPopUpOrderModal();
+  }
+
+  @Then("User fill out data for and finish checkout proccess")
+  public void userFillOutDataAndFinishCheckout() {
+    productPage.inputDataForCheckout();
+  }
+
+  @Then("User not fill out data for chcekout and just proccess the checkout")
+  public void userNotFillOutDataAndFinishCheckout() {
+    productPage.notInputDataForCheckout();
+  }
 }

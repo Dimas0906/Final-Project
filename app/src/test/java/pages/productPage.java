@@ -2,20 +2,19 @@ package pages;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.time.Duration;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import helper.BaseTest;
 import static helper.Utility.driver;
 
 public class productPage extends BaseTest {
+  WebDriverWait wait;
 
   // Open Cart
   public void openCartMenu() {
@@ -96,64 +95,68 @@ public class productPage extends BaseTest {
 
   // click pada Place Order
   public void clickPlaceOrder() {
-    driver.findElement(By.xpath("//button[contains(text(),'Place Order')]")).click();
+    WebElement placeOrderButton = driver.findElement(By.xpath("//*[contains(text(), 'Place Order')]"));
+    placeOrderButton.click();
   }
 
   // Pop-up Will be shown
-  public void isPopUpShown() {
-    WebElement popup = driver.findElement(By.xpath("//h5[@id='orderModalLabel']"));
-    assertTrue(popup.isDisplayed());
+  public void isPopUpOrderModal() {
+    WebElement popup = driver.findElement(By.xpath("//body/div[@id='orderModal']/div[1]/div[1]"));
+    popup.isDisplayed();
   }
 
-  // Memasukan Name
-  public void inputName(String name) {
-    driver.findElement(By.id("name")).sendKeys(name);
-  }
+  // Memasukan semua data untuk checkout
+  public void inputDataForCheckout() {
+    String parentWindowHandler = driver.getWindowHandle();
+    String subWindowHandle = null;
 
-  // Memasukan Country
-  public void inputCountry(String country) {
-    driver.findElement(By.id("country")).sendKeys(country);
-  }
+    Set<String> handles = driver.getWindowHandles();
+    Iterator<String> iterator = handles.iterator();
 
-  // Memasukan City
-  public void inputCity(String city) {
-    driver.findElement(By.id("city")).sendKeys(city);
-  }
+    while (iterator.hasNext()) {
+      subWindowHandle = iterator.next();
+    }
+    driver.switchTo().window(subWindowHandle);
 
-  // Memasukan Credit Card
-  public void inputCreditCard(String creditCard) {
-    driver.findElement(By.id("card")).sendKeys(creditCard);
-  }
+    // fillout all the data
+    driver.findElement(By.xpath("//input[@id='name']")).sendKeys("test person");
+    driver.findElement(By.xpath("//input[@id='country']")).sendKeys("Indonesia");
+    driver.findElement(By.xpath("//input[@id='city']")).sendKeys("Jakarta");
+    driver.findElement(By.xpath("//input[@id='card']")).sendKeys("12345678901122334");
+    driver.findElement(By.xpath("//input[@id='month']")).sendKeys("12");
+    driver.findElement(By.xpath("//input[@id='year']")).sendKeys("2023");
 
-  // Memasukan Month
+    // Click on Purchase
+    driver.findElement(By.xpath("//button[contains(text(),'Purchase')]")).click();
 
-  public void inputMonth(String month) {
-    driver.findElement(By.id("month")).sendKeys(month);
-  }
-
-  // Memasukan Year
-  public void inputYear(String year) {
-    driver.findElement(By.id("year")).sendKeys(year);
-  }
-
-  // Click Close Button
-  public void clickCloseButton() {
-    driver.findElement(By.xpath("//*[@id=\"orderModal\"]/div/div/div[3]/button[1]")).click();
-  }
-
-  // Click Purchase button
-  public void clickPurchaseButton() {
-    driver.findElement(By.xpath("//*[@id=\"orderModal\"]/div/div/div[3]/button[2]")).click();
-  }
-
-  // Validate Checkout Berhasil
-  public void isCheckoutSuccess() {
+    // Validate purchase success
     WebElement popup = driver.findElement(By.xpath("//h2[contains(text(),'Thank you for your purchase!')]"));
     assertTrue(popup.isDisplayed());
+
+    // Click OK
+    driver.findElement(By.xpath("//button[contains(text(),'OK')]")).click();
+
+    // switch back to parent window
+    driver.switchTo().window(parentWindowHandler);
   }
 
-  // Click Ok pada Popup
-  public void clickOk() {
-    driver.findElement(By.xpath("//button[contains(text(),'OK')]")).click();
+  // Memasukan semua data untuk checkout
+  public void notInputDataForCheckout() {
+    String parentWindowHandler = driver.getWindowHandle();
+    String subWindowHandle = null;
+
+    Set<String> handles = driver.getWindowHandles();
+    Iterator<String> iterator = handles.iterator();
+
+    while (iterator.hasNext()) {
+      subWindowHandle = iterator.next();
+    }
+    driver.switchTo().window(subWindowHandle);
+
+    // Click on Purchase
+    driver.findElement(By.xpath("//button[contains(text(),'Purchase')]")).click();
+
+    // switch back to parent window
+    driver.switchTo().window(parentWindowHandler);
   }
 }

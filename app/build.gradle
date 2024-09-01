@@ -72,3 +72,38 @@ tasks.register('cucumberTest') {
         }
     }
 }
+
+
+tasks.register('apiTest') {
+    dependsOn assemble, testClasses
+    doLast {
+        javaexec {
+            mainClass = "io.cucumber.core.cli.Main"
+            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+            args = [
+                    '--plugin', 'pretty',
+                    '--plugin', 'html:reports/cucumber-api-report.html',
+                    '--plugin', 'json:reports/cucumber-api-report.json',
+                    '--glue', 'stepdef',
+                    '--tags',"@apiAll",
+                    'src/test/java/feature']
+        }
+    }
+}
+
+tasks.register('webuiTest') {
+    dependsOn assemble, testClasses
+    doLast {
+        javaexec {
+            mainClass = "io.cucumber.core.cli.Main"
+            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+            args = [
+                    '--plugin', 'pretty',
+                    '--plugin', 'html:reports/cucumber-api-report.html',
+                    '--plugin', 'json:reports/cucumber-api-report.json',
+                    '--glue', 'stepdef',
+                    '--tags', "@homepage or @productpage",
+                    'src/test/java/feature']
+        }
+    }
+}
