@@ -30,16 +30,13 @@ jobs:
         distribution: 'temurin'
 
     - name: Setup Gradle
-      uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
+      uses: gradle/gradle-build-action@v2
 
     - name: Gradle Permission
       run: chmod +x selenium/gradlew
       
     - name: Build with Gradle Wrapper
       run: ./gradlew build
-
-    - name: Setup Gradle
-      uses: gradle/gradle-build-action@v2
 
     - name: Setup Chrome
       uses: browser-actions/setup-chrome@v1.7.2
