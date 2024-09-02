@@ -64,8 +64,8 @@ tasks.register('cucumbertest') {
             classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
             args = [
                     '--plugin', 'pretty',
-                    '--plugin', 'html:reports/cucumber-api-report.html',
-                    '--plugin', 'json:reports/cucumber-api-report.json',
+                    '--plugin', 'html:reports/automation-report.html',
+                    '--plugin', 'json:reports/automation-report.json',
                     '--glue', 'stepdef',
                     '--tags',"${tags}",
                     'src/test/java/feature']
@@ -82,8 +82,8 @@ tasks.register('apiTest') {
             classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
             args = [
                     '--plugin', 'pretty',
-                    '--plugin', 'html:reports/cucumber-api-report.html',
-                    '--plugin', 'json:reports/cucumber-api-report.json',
+                    '--plugin', 'html:reports/automation-report.html',
+                    '--plugin', 'json:reports/automation-report.json',
                     '--glue', 'stepdef',
                     '--tags',"@apiAll",
                     'src/test/java/feature']
@@ -99,8 +99,8 @@ tasks.register('webuiTest') {
             classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
             args = [
                     '--plugin', 'pretty',
-                    '--plugin', 'html:reports/cucumber-api-report.html',
-                    '--plugin', 'json:reports/cucumber-api-report.json',
+                    '--plugin', 'html:reports/automation-report.html',
+                    '--plugin', 'json:reports/automation-report.json',
                     '--glue', 'stepdef',
                     '--tags', "@homepage or @productpage",
                     'src/test/java/feature']
