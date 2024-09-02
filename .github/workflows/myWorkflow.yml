@@ -50,6 +50,8 @@ jobs:
       run: |
           cd selenium
           ls
+          cd app
+          ls
           cd selenium/app/reports
           mv cucumber.html index.html
           ls
