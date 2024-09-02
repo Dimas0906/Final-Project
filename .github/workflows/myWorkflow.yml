@@ -48,9 +48,7 @@ jobs:
 
     - name: Check report
       run: |
-          cd selenium
-          ls
-          cd app
+          cd selenium/app
           ls
           cd selenium/app/reports
           mv cucumber.html index.html
