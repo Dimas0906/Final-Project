@@ -46,7 +46,7 @@ jobs:
       - name: Check report
         run: |
           cd selenium/app/reports
-          mv automation-report.html automation-report.json
+          mv automation-report.html index.html
           ls
 
       - name: Upload a Build Artifact
