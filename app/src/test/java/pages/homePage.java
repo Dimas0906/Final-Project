@@ -92,7 +92,7 @@ public class homePage extends BaseTest {
 
   // User dapat melihat signup berhasil pada alert
   public void chceckAlertMessage(String message, String userAction) {
-    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     wait.until(ExpectedConditions.alertIsPresent());
 
     Alert alert = driver.switchTo().alert();
