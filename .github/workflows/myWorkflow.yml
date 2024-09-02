@@ -41,12 +41,12 @@ jobs:
       - name: Execute UI Testing Headless
         run: |
           cd selenium
-          ./gradlew cucumberTest
+          ./gradlew cucumbertest
 
       - name: Check report
         run: |
           cd selenium/app/reports
-          mv automation-report.html automation-report.html
+          mv automation-report.html automation-report.json
           ls
 
       - name: Upload a Build Artifact
