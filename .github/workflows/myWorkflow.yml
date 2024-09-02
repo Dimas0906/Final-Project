@@ -45,8 +45,6 @@ jobs:
 
       - name: Check report
         run: |
-          cd selenium/app
-          ls
           cd selenium/app/reports
           mv automation-report.html automation-report.html
           ls
