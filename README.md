@@ -7,34 +7,35 @@
 ---
 
 > Description : 
-Project ini adalah automasi yang dibuat untuk : API & Webui. dimana untuk API saya menggunakan "https://gorest.co.in/public/v2/" dan untuk Webui saya menggunakan "https://www.demoblaze.com/".
+This project is an automation built for: API & Web UI. The API testing uses "**https://gorest.co.in/public/v2/**", and the Web UI testing uses "**https://www.demoblaze.com/**".
 
 
 ---
 
 
-Untuk inisialisasi project awal : 
-- Lakukan Clone terhadap repo project ini
-- Clone ke local computer kalian
-- Buka terminal dari project yang sudah di clone dan ketikan `./gradlew build`
-- Project sudah siap untuk dilakukan editing
+For Initial Project Setup:
+- Clone the project repository.
+- Clone it to your local computer.
+- Open the terminal within the cloned project directory and type: `./gradlew build`
+- The project is now ready for editing.
 
+</br>
 
-### Berikut ini adalah command yang dapat digunakan untuk melakukan eksekusi testing : 
+### The following commands can be used to execute testing:
 
-> Command untuk menjalankan semua testing adalah `./gradlew cucumbertest`
+  - The command to run all tests is: ./gradlew cucumbertest
 
-> Command untuk menjalankan testing pada spesifik tags adalah `./gradlew cucumbertest -P tags:@tags`
+  - The command to run tests with specific tags is: ./gradlew cucumbertest -P tags:@tags
 
-> Command untuk menjalankan testing khusus untuk semua api test `./gradlew apiTest`
+  - The command to run testing specifically for all API tests is: ./gradlew apiTest
 
-> Command untuk menjalankan testing khusus untuk semua ui test `./gradlew webuiTest`
+  - The command to run testing specifically for all UI tests is: ./gradlew webuiTest
 
   
 ---
 
 
-### Berikut ini adalah page yang dapat diakses untuk melihat result dari hasil eksekusinya
+### Click here to see the result of automation proccess.
 ![image](https://github.com/user-attachments/assets/419fb649-c957-4403-a754-a17f8d341f48)
 
 ![image](https://github.com/user-attachments/assets/83c95527-3a8b-4e93-95c2-d83888d227da)
